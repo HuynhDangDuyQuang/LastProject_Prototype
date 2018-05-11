@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">LastProject</string>
+    <string-array name="activity_array">
+
+        <item>How active are you ?</item>
+        <item>Sedentary</item>
+        <item>Lightly Active</item>
+        <item>Moderately Active</item>
+        <item>Very Active</item>
+        <item>Extra Active</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
