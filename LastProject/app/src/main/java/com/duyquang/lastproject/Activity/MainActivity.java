@@ -17,6 +17,8 @@ import com.duyquang.lastproject.R;
 import java.util.Calendar;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
+import io.realm.exceptions.RealmMigrationNeededException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,7 +51,17 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-        realm = Realm.getDefaultInstance();
+        try {
+            realm = Realm.getDefaultInstance();
+        } catch (RealmMigrationNeededException r) {
+            RealmConfiguration config = new RealmConfiguration
+                    .Builder()
+                    .deleteRealmIfMigrationNeeded()
+                    .build();
+            Realm.deleteRealm(config);
+            realm = Realm.getDefaultInstance();
+        }
+
         user=realm.where(User.class).findFirst();
         if(user==null) {
             startActivityForResult(new Intent(MainActivity.this,UserInformationActivity.class), MyApp.MAIN_ACTIVITY_REQUEST_CODE);

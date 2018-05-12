@@ -57,6 +57,8 @@ public class FoodSearchActivity extends AppCompatActivity {
         FilterAdapter adapter = new FilterAdapter(FoodSearchActivity.this, hits);
         lv.setAdapter(adapter);
 
+        inputSearch.requestFocus();
+        inputSearch.setIconified(false);
         inputSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
             @Override

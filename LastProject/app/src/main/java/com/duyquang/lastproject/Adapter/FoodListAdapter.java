@@ -68,13 +68,15 @@ public class FoodListAdapter extends BaseAdapter {
         TextView foodQuantity=convertView.findViewById(R.id.foodQuantity);
         TextView calories =convertView.findViewById(R.id.calories);
 
-        foodName.setText(item.getItem_name());
+        String itemName=item.getItem_name().split("-")[0].trim();
+        if(itemName.length()>40)
+            foodName.setText(itemName.substring(0,40)+"...");
+        else foodName.setText(itemName);
 
-        foodQuantity.setText("1 unit");
+        foodQuantity.setText(item.getNf_serving_size_qty().intValue()+" "+item.getNf_serving_size_unit());
 
-        calories.setText(item.getNf_calories().intValue()+"");
+        calories.setText((item.getNf_calories().intValue()*item.getNf_serving_size_qty().intValue())+"");
         realm=Realm.getDefaultInstance();
-
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -115,22 +115,22 @@ public class StatsFragment extends Fragment {
 
                     if(utd.getBreakfast()!=null) {
                         for(ItemDetail i:utd.getBreakfast()){
-                            totalIntakeCalorie+=i.getNf_calories().intValue();
+                            totalIntakeCalorie+=i.getNf_calories().intValue()*i.getNf_serving_size_qty().intValue();
                         }
                     }
                     if(utd.getLunch()!=null) {
                         for(ItemDetail i:utd.getLunch()){
-                            totalIntakeCalorie+=i.getNf_calories().intValue();
+                            totalIntakeCalorie+=i.getNf_calories().intValue()*i.getNf_serving_size_qty().intValue();
                         }
                     }
                     if(utd.getDinner()!=null) {
                         for(ItemDetail i:utd.getDinner()){
-                            totalIntakeCalorie+=i.getNf_calories().intValue();
+                            totalIntakeCalorie+=i.getNf_calories().intValue()*i.getNf_serving_size_qty().intValue();
                         }
                     }
                     if(utd.getSnack()!=null) {
                         for(ItemDetail i:utd.getSnack()){
-                            totalIntakeCalorie+=i.getNf_calories().intValue();
+                            totalIntakeCalorie+=i.getNf_calories().intValue()*i.getNf_serving_size_qty().intValue();
                         }
                     }
 

@@ -19,17 +19,12 @@ import java.util.List;
 public class FilterAdapter extends BaseAdapter  {
 
     Context mContext;
-//    NutritionixSearch nutritionixSearch;
     List<Hit> hits;
-//    CustomFilter filter;
-//    List<Hit> filterList;
 
     public FilterAdapter(Context ctx, List<Hit> hits) {
         // TODO Auto-generated constructor stub
-
         this.mContext=ctx;
         this.hits=hits;
-//        this.filterList=new ArrayList<Hit>();
     }
 
     @Override
@@ -62,11 +57,13 @@ public class FilterAdapter extends BaseAdapter  {
             convertView=inflater.inflate(R.layout.list_item, parent,false);
         }
         TextView itemName=(TextView) convertView.findViewById(R.id.item_name);
-//        TextView brandName=(TextView) convertView.findViewById(R.id.brand_name);
         TextView nfCalories=(TextView) convertView.findViewById(R.id.nf_calories);
         Fields fields=hit.getFields();
-        itemName.setText(fields.getItem_name());
-//        brandName.setText(fields.getBrand_name());
+
+        String name=fields.getItem_name();
+        if(name.length()>42)
+            itemName.setText(name.substring(0,42)+"...");
+        else itemName.setText(name);
         nfCalories.setText(fields.getNf_calories()+"cal");
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +73,6 @@ public class FilterAdapter extends BaseAdapter  {
                 i.putExtra("time", FoodSearchActivity.time);
                 i.putExtra("willAdd",true);
                 mContext.startActivity(i);
-
             }
         });
         return convertView;

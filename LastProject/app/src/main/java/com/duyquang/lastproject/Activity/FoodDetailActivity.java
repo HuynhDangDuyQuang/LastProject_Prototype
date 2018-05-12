@@ -3,8 +3,10 @@ package com.duyquang.lastproject.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +45,9 @@ public class FoodDetailActivity extends AppCompatActivity {
     TextView ironDailyValue;
     ProgressBar progressBar;
 
+    EditText foodSizeQuantity;
+    TextView foodSizeUnit;
+
     Button addFood;
 
     ItemDetail itemDetail;
@@ -80,11 +85,18 @@ public class FoodDetailActivity extends AppCompatActivity {
         calciumDailyValue=findViewById(R.id.calciumDailyValue);
         ironDailyValue=findViewById(R.id.ironDailyValue);
 
+        foodSizeQuantity=findViewById(R.id.foodSizeQuantity);
+        foodSizeUnit=findViewById(R.id.foodSizeUnit);
+
         addFood=findViewById(R.id.addFood);
         willAdd=false;
         if(bundle!=null)
             willAdd=bundle.getBoolean("willAdd");
 
+        foodSizeQuantity.setGravity(Gravity.CENTER);
+        foodSizeQuantity.setFocusable(false);
+        foodSizeQuantity.setFocusableInTouchMode(false);
+        foodSizeQuantity.setClickable(false);
         addFood.setVisibility(View.INVISIBLE);
         realm = Realm.getDefaultInstance();
         addFood.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +117,10 @@ public class FoodDetailActivity extends AppCompatActivity {
                         @Override
                         public void execute(Realm realm) {
                             ItemDetail newItem=realm.createObjectFromJson(ItemDetail.class,rawItemDetail);
+                            if(newItem.getNf_serving_size_unit().startsWith("g"))
+                                newItem.setNf_serving_size_unit("x "+newItem.getNf_serving_size_qty().intValue()+" "+newItem.getNf_serving_size_unit());
+                            newItem.setNf_serving_size_qty(Float.parseFloat(foodSizeQuantity.getText().toString()));
+
                             if(time.equals("Breakfast")){
                                 if(utd.getBreakfast()!=null)
                                     utd.getBreakfast().add(newItem);
@@ -155,6 +171,10 @@ public class FoodDetailActivity extends AppCompatActivity {
                             utd.setDay(MainActivity.datePointer.get(Calendar.DATE));
 
                             ItemDetail newItem=realm.createObjectFromJson(ItemDetail.class,rawItemDetail);
+                            if(newItem.getNf_serving_size_unit().startsWith("g"))
+                                newItem.setNf_serving_size_unit("x "+newItem.getNf_serving_size_qty().intValue()+" "+newItem.getNf_serving_size_unit());
+                            newItem.setNf_serving_size_qty(Float.parseFloat(foodSizeQuantity.getText().toString()));
+
                             if(time.equals("Breakfast")){
                                 RealmList<ItemDetail> breakfast=new  RealmList<>();
                                 breakfast.add(newItem);
@@ -183,7 +203,6 @@ public class FoodDetailActivity extends AppCompatActivity {
                 Intent i=new Intent(FoodDetailActivity.this,MainActivity.class);
 
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//                setResult(MyApp.FOOD_DETAIL_ACTIVITY_RESULT_CODE,i);
                 startActivity(i);
 
             }
@@ -233,8 +252,27 @@ public class FoodDetailActivity extends AppCompatActivity {
                         calciumDailyValue.setText((itemDetail.getNf_calcium_dv()!=null)?(itemDetail.getNf_calcium_dv()+"%"):(""));
                         ironDailyValue.setText((itemDetail.getNf_iron_dv()!=null)?(itemDetail.getNf_iron_dv()+"%"):(""));
 
+                        foodSizeQuantity.setText((itemDetail.getNf_serving_size_qty()!=null)?(itemDetail.getNf_serving_size_qty().intValue()+""):("1"));
+                        String unit;
+                        if(itemDetail.getNf_serving_size_unit()!=null)
+                            unit=itemDetail.getNf_serving_size_unit();
+                        else unit="unit";
+
+                        if(unit.startsWith("g")) {
+                            unit = "x " + itemDetail.getNf_serving_size_qty().intValue() + " " + itemDetail.getNf_serving_size_unit();
+                            foodSizeQuantity.setText("1");
+                        }
+                        else
+                            foodSizeQuantity.setText((itemDetail.getNf_serving_size_qty()!=null)?(itemDetail.getNf_serving_size_qty().intValue()+""):("1"));
+                        foodSizeUnit.setText(unit);
+
                         progressBar.setVisibility(View.GONE);
-                        if(willAdd) addFood.setVisibility(View.VISIBLE);
+                        if(willAdd) {
+                            addFood.setVisibility(View.VISIBLE);
+                            foodSizeQuantity.setFocusable(true);
+                            foodSizeQuantity.setFocusableInTouchMode(true);
+                            foodSizeQuantity.setClickable(true);
+                        }
                     }
                 });
             }

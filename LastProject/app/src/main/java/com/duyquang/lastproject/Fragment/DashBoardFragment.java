@@ -156,8 +156,8 @@ public class DashBoardFragment extends Fragment{
                 String time;
                 int hourOfDay=Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
                 if(hourOfDay>=5&&hourOfDay<10) time="Breakfast";
-                if(hourOfDay>=10&&hourOfDay<15) time="Lunch";
-                if(hourOfDay>=15&&hourOfDay<20) time="Dinner";
+                else if(hourOfDay>=10&&hourOfDay<15) time="Lunch";
+                else if(hourOfDay>=15&&hourOfDay<20) time="Dinner";
                 else time="Snack";
                 searchFood.putExtra("time",time);
                 startActivityForResult(searchFood, MyApp.DASH_BOARD_REQUEST_CODE);
@@ -245,74 +245,59 @@ public class DashBoardFragment extends Fragment{
         if(utd!=null){
             if(utd.getBreakfast()!=null) {
                 for(ItemDetail i:utd.getBreakfast()){
-                    totalIntakeCalorie+=i.getNf_calories().intValue();
-                    if(i.getNf_protein()==null)totalProtein+=0;
-                    else totalProtein+=i.getNf_protein().intValue();
+                    totalIntakeCalorie+=i.getNf_calories().intValue()*i.getNf_serving_size_qty().intValue();
+                    if(i.getNf_protein()!=null) totalProtein+=i.getNf_protein().intValue()*i.getNf_serving_size_qty().intValue();
 
-                    if(i.getNf_total_carbohydrate()==null) totalCarbohydrates+=0;
-                    else totalCarbohydrates+=i.getNf_total_carbohydrate().intValue();
+                    if(i.getNf_total_carbohydrate()!=null) totalCarbohydrates+=i.getNf_total_carbohydrate().intValue()*i.getNf_serving_size_qty().intValue();
 
-                    if(i.getNf_total_fat()==null) totalFat+=0;
-                    else totalFat+=i.getNf_total_fat().intValue();
+                    if(i.getNf_total_fat()!=null) totalFat+=i.getNf_total_fat().intValue()*i.getNf_serving_size_qty().intValue();
 
-                    breakfastCalories+=i.getNf_calories().intValue();
+                    breakfastCalories+=i.getNf_calories().intValue()*i.getNf_serving_size_qty().intValue();
                 }
                 FoodListAdapter adapter = new FoodListAdapter(DashBoardFragment.this.getActivity(),utd.getBreakfast(),"Breakfast");
                 listBreakfast.setAdapter(adapter);
                 setListViewHeightBasedOnChildren(listBreakfast);
             }
             if(utd.getLunch()!=null) {
-
                 for(ItemDetail i:utd.getLunch()){
-                    totalIntakeCalorie+=i.getNf_calories().intValue();
-                    if(i.getNf_protein()==null)totalProtein+=0;
-                    else totalProtein+=i.getNf_protein().intValue();
+                    totalIntakeCalorie+=i.getNf_calories().intValue()*i.getNf_serving_size_qty().intValue();
+                    if(i.getNf_protein()!=null) totalProtein+=i.getNf_protein().intValue()*i.getNf_serving_size_qty().intValue();
 
-                    if(i.getNf_total_carbohydrate()==null) totalCarbohydrates+=0;
-                    else totalCarbohydrates+=i.getNf_total_carbohydrate().intValue();
+                    if(i.getNf_total_carbohydrate()!=null) totalCarbohydrates+=i.getNf_total_carbohydrate().intValue()*i.getNf_serving_size_qty().intValue();
 
-                    if(i.getNf_total_fat()==null) totalFat+=0;
-                    else totalFat+=i.getNf_total_fat().intValue();
+                    if(i.getNf_total_fat()!=null) totalFat+=i.getNf_total_fat().intValue()*i.getNf_serving_size_qty().intValue();
 
-                    lunchCalories+=i.getNf_calories().intValue();
+                    lunchCalories+=i.getNf_calories().intValue()*i.getNf_serving_size_qty().intValue();
                 }
                 FoodListAdapter adapter = new FoodListAdapter(DashBoardFragment.this.getActivity(),utd.getLunch(),"Lunch");
                 listLunch.setAdapter(adapter);
                 setListViewHeightBasedOnChildren(listLunch);
             }
             if(utd.getDinner()!=null) {
-
                 for(ItemDetail i:utd.getDinner()){
-                    totalIntakeCalorie+=i.getNf_calories().intValue();
-                    if(i.getNf_protein()==null)totalProtein+=0;
-                    else totalProtein+=i.getNf_protein().intValue();
+                    totalIntakeCalorie+=i.getNf_calories().intValue()*i.getNf_serving_size_qty().intValue();
+                    if(i.getNf_protein()!=null) totalProtein+=i.getNf_protein().intValue()*i.getNf_serving_size_qty().intValue();
 
-                    if(i.getNf_total_carbohydrate()==null) totalCarbohydrates+=0;
-                    else totalCarbohydrates+=i.getNf_total_carbohydrate().intValue();
+                    if(i.getNf_total_carbohydrate()!=null) totalCarbohydrates+=i.getNf_total_carbohydrate().intValue()*i.getNf_serving_size_qty().intValue();
 
-                    if(i.getNf_total_fat()==null) totalFat+=0;
-                    else totalFat+=i.getNf_total_fat().intValue();
+                    if(i.getNf_total_fat()!=null) totalFat+=i.getNf_total_fat().intValue()*i.getNf_serving_size_qty().intValue();
 
-                    dinnerCalories+=i.getNf_calories().intValue();
+                    dinnerCalories+=i.getNf_calories().intValue()*i.getNf_serving_size_qty().intValue();
                 }
                 FoodListAdapter adapter = new FoodListAdapter(DashBoardFragment.this.getActivity(),utd.getDinner(),"Dinner");
                 listDinner.setAdapter(adapter);
                 setListViewHeightBasedOnChildren(listDinner);
             }
             if(utd.getSnack()!=null) {
-
                 for(ItemDetail i:utd.getSnack()){
-                    totalIntakeCalorie+=i.getNf_calories().intValue();
-                    if(i.getNf_protein()==null)totalProtein+=0;
-                    else totalProtein+=i.getNf_protein().intValue();
+                    totalIntakeCalorie+=i.getNf_calories().intValue()*i.getNf_serving_size_qty().intValue();
+                    if(i.getNf_protein()!=null) totalProtein+=i.getNf_protein().intValue()*i.getNf_serving_size_qty().intValue();
 
-                    if(i.getNf_total_carbohydrate()==null) totalCarbohydrates+=0;
-                    else totalCarbohydrates+=i.getNf_total_carbohydrate().intValue();
+                    if(i.getNf_total_carbohydrate()!=null) totalCarbohydrates+=i.getNf_total_carbohydrate().intValue()*i.getNf_serving_size_qty().intValue();
 
-                    if(i.getNf_total_fat()==null) totalFat+=0;
-                    else totalFat+=i.getNf_total_fat().intValue();
+                    if(i.getNf_total_fat()!=null) totalFat+=i.getNf_total_fat().intValue()*i.getNf_serving_size_qty().intValue();
 
-                    snackCalories+=i.getNf_calories().intValue();
+                    snackCalories+=i.getNf_calories().intValue()*i.getNf_serving_size_qty().intValue();
                 }
                 FoodListAdapter adapter = new FoodListAdapter(DashBoardFragment.this.getActivity(),utd.getSnack(),"Snack");
                 listSnack.setAdapter(adapter);
