@@ -66,7 +66,12 @@ public class DetailFilterAdapter extends BaseAdapter {
         TextView nfFat=convertView.findViewById(R.id.nf_total_fat);
 
         Fields fields=hit.getFields();
-        itemName.setText(fields.getItem_name());
+
+        String name=fields.getItem_name();
+        if(name.length()>80)
+            itemName.setText(name.substring(0,80)+"...");
+        else itemName.setText(name);
+
         brandName.setText(fields.getBrand_name());
 
         nfCalories.setText((fields.getNf_calories()!=null)?(fields.getNf_calories()+"cal"):(""));

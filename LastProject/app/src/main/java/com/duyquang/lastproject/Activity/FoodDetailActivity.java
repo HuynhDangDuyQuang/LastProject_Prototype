@@ -203,6 +203,7 @@ public class FoodDetailActivity extends AppCompatActivity {
                 Intent i=new Intent(FoodDetailActivity.this,MainActivity.class);
 
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
                 startActivity(i);
 
             }

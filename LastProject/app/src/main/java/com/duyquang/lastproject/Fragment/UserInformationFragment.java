@@ -75,6 +75,60 @@ public class UserInformationFragment extends Fragment {
             caloriesGoal.setText(user.getGoal()+"");
         }
 
+//        activity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//                @Override
+//                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                    if(!age.getText().toString().isEmpty()
+//                            &&!height.getText().toString().isEmpty()
+//                            &&!weight.getText().toString().isEmpty()){
+//                        double recommendCalPerDay;
+//                        if(female.isChecked())
+//                            recommendCalPerDay=( (9.247 * Float.parseFloat(weight.getText().toString()))
+//                                    + (3.098 * Float.parseFloat(height.getText().toString()))
+//                                    - (4.330 * Float.parseFloat(age.getText().toString())) + 447.593 );
+//
+//                        else
+//                            recommendCalPerDay=( (13.397 * Float.parseFloat(weight.getText().toString()))
+//                                    + (4.799 * Float.parseFloat(height.getText().toString()))
+//                                    - (5.677 * Float.parseFloat(age.getText().toString())) + 88.362 );
+//
+//                        double rate=0;
+//                        switch (activity.getSelectedItemPosition()){
+//                            case 1:{
+//                                rate =  1.2;
+//                                break;
+//                            }
+//                            case 2:{
+//                                rate = 1.375;
+//                                break;
+//                            }
+//                            case 3:{
+//                                rate = 1.55;
+//                                break;
+//                            }
+//                            case 4:{
+//                                rate = 1.725;
+//                                break;
+//                            }
+//                            case 5:{
+//                                rate = 1.9;
+//                                break;
+//                            }
+//                            default: break;
+//                        }
+//
+//                        caloriesGoal.setText((int)(rate*recommendCalPerDay)+"");
+//
+//                    }
+//                }
+//
+//                @Override
+//                public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//                }
+//            }
+//        );
+
         recommendLabel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
